@@ -3,6 +3,23 @@ products:
   - id: hq8xrxjmheit80cs
     manufacturer: Outsmart
     model: RGBIC LED
+  - id: kmgfxv1zmklfpxxn
+    model: JSK-P22
+  - id: wuy0oikiieoirzs7
+    manufacturer: Arlec
+    model: Smart 5m Neon Flex - CHR370HA
+  - id: ceu9kibxiqqcpigb
+    manufacturer: Arlec
+    model: Smart Desk Light - CHR352HA
+  - id: 3ppjov0jwtg4fouj
+    manufacturer: Battletron
+    model: Gaming monitor strip (2024)
+  - id: jwiudkdzdd7agu2o
+    manufacturer: Battletron
+    model: Smart desk light strip
+  - id: bt9wz6d66rehbqne
+    manufacturer: LSC Smart Connect
+    model: Outdoor 3M Neon strip
 entities:
   - entity: light
     dps:
@@ -63,6 +80,7 @@ entities:
   - entity: number
     name: Pixels
     category: config
+    hidden: unavailable
     icon: "mdi:dots-grid"
     dps:
       - id: 53
@@ -72,6 +90,14 @@ entities:
         range:
           min: 1
           max: 1000
+      - id: 53
+        type: integer
+        optional: true
+        name: available
+        mapping:
+          - dps_val: null
+            value: false
+          - value: true
   - entity: select
     translation_key: scene
     category: config
@@ -179,10 +205,6 @@ entities:
         type: hex
         optional: true
         name: value
-      - id: 51
-        name: dreamlight_scene
-        type: string
-        optional: true
   - entity: text
     translation_key: scene
     category: config

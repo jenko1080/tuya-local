@@ -52,7 +52,7 @@
             },
             "select_type_auto_detected": {
                 "title": "Trieu el tipus de dispositiu",
-                "description": "{device_name}Trieu el tipus que coincideix amb el vostre dispositiu. La versión de protocolo {detected_protocol} se detectó automáticamente y se guardó. Si actualiza el firmware del dispositivo en el futuro, es posible que deba reconfigurar esta integración.",
+                "description": "{device_name}Trieu el tipus que coincideixi amb el vostra dispositiu. La versió del protocol {detected_protocol} s'ha detectat i desat automàticament. Si actualitzeu el microprogramari del dispositiu en el futur, és possible que hàgiu de reconfigurar aquesta integració.",
                 "data": {
                     "type": "Tipus de dispositiu"
                 }
@@ -71,7 +71,7 @@
             "no_devices": "No s'ha pogut trobar cap dispositiu sense registrar per al compte."
         },
         "error": {
-            "connection": "No s'ha pogut conectar al vostre dispositiu con esos detalles. Podría ser un problema intermitente, o podrían ser incorrectos. Si seleccionó una versión de protocolo específica, intente 'auto' en su lugar.",
+            "connection": "No s'ha pogut connectar al vostre dispositiu amb aquests detalls. Podria ser una qüestió intermitent, o pot ser que siguin incorrectes. Si heu seleccionat una versió específica del protocol, proveu «auto».",
             "needs_hub": "El dispositiu necessita una passarel·la i no se n'ha seleccionat cap.",
             "does_not_need_hub": "El dispositiu no necessita una passarel·la i se n'ha seleccionat una. Reviseu les vostres opcions."
         }
@@ -103,7 +103,27 @@
             "not_supported": "No hi ha suport per a aquest dispositiu."
         },
         "error": {
-            "connection": "No s'ha pogut conectar al vostre dispositiu con esos detalles. Podría ser un problema intermitente, o podrían ser incorrectos. Si seleccionó una versión de protocolo específica, intente 'auto' en su lugar."
+            "connection": "No s'ha pogut connectar al vostre dispositiu amb aquests detalls. Podria ser una qüestió intermitent, o pot ser que siguin incorrectes. Si heu seleccionat una versió específica del protocol, proveu «auto»."
+        }
+    },
+    "services": {
+        "send_learned_ir_command": {
+            "name": "Enviar comando IR aprendido",
+            "description": "Envía un comando IR que ha sido aprendido por un dispositivo Tuya Local compatible.",
+            "fields": {
+                "emitter_entity_id": {
+                    "name": "Emissor",
+                    "description": "La entidad del transmisor IR que se utilizará para enviar el comando."
+                },
+                "command": {
+                    "name": "Comando",
+                    "description": "El comando IR a enviar. Este debe ser el mismo comando que fue aprendido por el dispositivo."
+                },
+                "device": {
+                    "name": "Dispositivo",
+                    "description": "El dispositivo IR al que enviar el comando. Esto es opcional y solo se necesita si el comando se guardó con un dispositivo."
+                }
+            }
         }
     },
     "entity": {
@@ -136,6 +156,7 @@
                             "chamber_low_temperature": "Temperatura baja de la cámara",
                             "chamber_overheat": "Sobrecalentamiento de la cámara",
                             "communication_error": "Error de comunicación",
+                            "door_open": "Puerta abierta",
                             "drain_blocked": "Desagüe bloqueado",
                             "evaporation_tray_low_temperature": "Temperatura baja de la bandeja de evaporación",
                             "evaporation_tray_overheat": "Sobrecalentamiento de la bandeja de evaporación",
@@ -143,6 +164,8 @@
                             "firewall_sensor_fault": "Falla del sensor de cortafuegos",
                             "gas_leak": "Fuga de gas",
                             "heating_fault": "Falla de calefacción",
+                            "high_temperature": "Temperatura alta",
+                            "low_temperature": "Temperatura baja",
                             "no_water": "Sin agua",
                             "ok": "Sin problemas",
                             "overflow": "Desbordamiento",
@@ -193,6 +216,13 @@
                     "off": "D'acord",
                     "on": "Bajo"
                 }
+            },
+            "water_flow": {
+                "name": "Flux d'aigua",
+                "state": {
+                    "off": "Bloquejat",
+                    "on": "Fluint"
+                }
             }
         },
         "button": {
@@ -201,6 +231,21 @@
             },
             "filter_reset": {
                 "name": "Reinicialització del filtre"
+            },
+            "alarm_off": {
+                "name": "Apagar alarma"
+            },
+            "alarm_snooze": {
+                "name": "Posposar alarma"
+            },
+            "alarm_x_reset": {
+                "name": "Alarma {x} reinici"
+            },
+            "radio_seek": {
+                "name": "Cercar ràdio"
+            },
+            "radio_stop": {
+                "name": "Aturar ràdio"
             }
         },
         "climate": {
@@ -275,7 +320,9 @@
                             "fan_only": "Ventilador",
                             "heat": "Aire calent",
                             "floor_cool": "Terra fred",
-                            "floor_heat": "Terra calent"
+                            "floor_heat": "Terra calent",
+                            "air_floor_cool": "Aire i terra freds",
+                            "air_floor_heat": "Aire i terra calents"
                         }
                     }
                 }
@@ -322,7 +369,9 @@
                             "program_2": "Programa 2",
                             "program_3": "Programa 3",
                             "standby": "En espera",
-                            "fan_only": "Només ventilador"
+                            "fan_only": "Només ventilador",
+                            "program": "Programa",
+                            "anti_frost": "Anticongelació"
                         }
                     }
                 }
@@ -401,6 +450,20 @@
             },
             "rangehood_light": {
                 "name": "Luz de la campana extractora"
+            },
+            "color_light": {
+                "name": "Llum de color"
+            },
+            "ambient_light": {
+                "name": "Llum ambiental"
+            }
+        },
+        "event": {
+            "alarm": {
+                "name": "Alarma"
+            },
+            "notification": {
+                "name": "Notificació"
             }
         },
         "humidifier": {
@@ -417,6 +480,23 @@
             }
         },
         "fan": {
+            "air_purifier": {
+                "name": "Purificador de aire",
+                "state_attributes": {
+                    "preset_mode": {
+                        "state": {
+                            "auto": "Automático",
+                            "manual": "Manual",
+                            "sleep": "Dormir",
+                            "low": "Bajo",
+                            "medium": "Medio",
+                            "high": "Alto",
+                            "strong": "Fuerte",
+                            "displayoff": "Pantalla apagada"
+                        }
+                    }
+                }
+            },
             "aroma_diffuser": {
                 "name": "Difusor d'aroma",
                 "state_attributes": {
@@ -479,7 +559,7 @@
                             "auto": "Automàtic",
                             "manual": "Manual",
                             "eco": "Ecològic",
-                            "anti-condensation": "Anticondensació",
+                            "anti_condensation": "Anticondensació",
                             "extractor": "Extractor",
                             "heat_recovery": "Recuperació de calor",
                             "timer": "Temporitzador",
@@ -496,6 +576,9 @@
             }
         },
         "number": {
+            "flame_level": {
+                "name": "Nivell de flama"
+            },
             "manual_feed": {
                 "name": "Alimentació manual"
             },
@@ -525,6 +608,21 @@
             },
             "top_temperature": {
                 "name": "Temperatura superior"
+            },
+            "leakage_current": {
+                "name": "Corrent de fuita"
+            },
+            "alarm_x_snooze_duration": {
+                "name": "Alarma {x} durada de l'ajornament"
+            },
+            "alarm_x_wake_light_lead_time": {
+                "name": "Alarma {x} avançament de llum de despertar"
+            },
+            "radio_frequency": {
+                "name": "Freqüència de ràdio"
+            },
+            "snooze_duration": {
+                "name": "Durada de l'ajornament"
             }
         },
         "select": {
@@ -585,24 +683,38 @@
             "language": {
                 "name": "Llengua",
                 "state": {
+                    "bulgarian": "Български",
                     "chinese": "中文",
                     "chinese_traditional": "中文(繁體)",
+                    "czech": "Čeština",
                     "danish": "Dansk",
                     "dutch": "Nederlands",
                     "english": "English",
                     "english_child": "English (Child)",
                     "french": "Français",
                     "german": "Deutsch",
+                    "hungarian": "Magyar",
                     "italian": "Italiano",
-                    "latin": "Español latinoamericano",
-                    "portuguese": "Português",
-                    "spanish": "Español",
-                    "turkish": "Türkçe",
                     "japanese": "日本語",
                     "korean": "한국어",
-                    "russian": "Русский",
+                    "latin": "Español latinoamericano",
                     "polish": "Polski",
-                    "vietnamese": "Tiếng Việt"
+                    "portuguese": "Português",
+                    "romanian": "Română",
+                    "russian": "Русский",
+                    "slovak": "Slovenčina",
+                    "spanish": "Español",
+                    "thai": "ไทย",
+                    "turkish": "Türkçe",
+                    "vietnamese": "Tiếng Việt",
+                    "english_au": "English (Australia)",
+                    "english_ca": "English (Canada)",
+                    "english_in": "English (India)",
+                    "english_us": "English (United States)",
+                    "french_ca": "Français (Canada)",
+                    "hindi": "हिंदी",
+                    "spanish_us": "Español (Estados Unidos)",
+                    "off": "Desactivat"
                 }
             },
             "light_mode": {
@@ -613,7 +725,20 @@
                     "state": "Estat",
                     "locator": "Localitzador",
                     "auto": "Automàtic",
-                    "flash": "Destell"
+                    "flash": "Destell",
+                    "breathe": "Respiració",
+                    "random": "Aleatori",
+                    "color": "Color",
+                    "favorite": "Preferit",
+                    "multi_color": "Multicolor",
+                    "custom": "Personalitzat",
+                    "mode_1": "Mode 1",
+                    "mode_2": "Mode 2",
+                    "mode_3": "Mode 3",
+                    "door": "Porta",
+                    "24h": "24 hores",
+                    "30m": "30 minuts",
+                    "1m": "1 minut"
                 }
             },
             "mopping": {
@@ -634,6 +759,14 @@
                     "low": "Baix",
                     "medium": "Mitjà",
                     "high": "Alt"
+                }
+            },
+            "night_vision": {
+                "name": "Visión nocturna",
+                "state": {
+                    "off": "Desactivado",
+                    "on": "Activado",
+                    "auto": "Automático"
                 }
             },
             "recipe": {
@@ -664,6 +797,13 @@
                     "preheat": "Preescalfament"
                 }
             },
+            "recording_mode": {
+                "name": "Mode de grabación",
+                "state": {
+                    "event": "Evento",
+                    "continuous": "Continuo"
+                }
+            },
             "scene": {
                 "name": "Escena",
                 "state": {
@@ -687,6 +827,10 @@
                 "state": {
                     "cancel": "Cancel·la",
                     "continuous": "Continu",
+                    "custom": "Personalitzat",
+                    "immediate": "Immediat",
+                    "5s": "5 segons",
+                    "10s": "10 segons",
                     "15s": "15 segons",
                     "20s": "20 segons",
                     "30s": "30 segons",
@@ -757,7 +901,16 @@
                     "4d": "4 dies",
                     "5d": "5 dies",
                     "6d": "6 dies",
-                    "7d": "7 dies"
+                    "7d": "7 dies",
+                    "10d": "10 dies",
+                    "30d": "30 dies",
+                    "60d": "60 dies",
+                    "80d": "80 dies",
+                    "90d": "90 dies",
+                    "100d": "100 dies",
+                    "120d": "120 dies",
+                    "160d": "160 dies",
+                    "365d": "365 dies"
                 }
             },
             "temperature_unit": {
@@ -785,7 +938,8 @@
                     "medium": "Mitjà",
                     "high": "Alt",
                     "rapid_clean": "Neteja ràpida",
-                    "schedule": "Programa"
+                    "schedule": "Programa",
+                    "sleep": "Dorm"
                 }
             },
             "activation_mode": {
@@ -870,7 +1024,7 @@
                     "dry": "Seco",
                     "storage": "Almacenamiento",
                     "light": "Ligero",
-                    "pots": "Ollas"
+                    "pots": "Pots i cassoles"
                 }
             },
             "water_hardness": {
@@ -975,13 +1129,87 @@
                     "red_bean_bread": "Pa de mongeta vermella",
                     "milk_toast": "Torrada amb llet"
                 }
+            },
+            "display_brightness": {
+                "name": "Brillantor de la pantalla",
+                "state": {
+                    "off": "Desactivat",
+                    "day": "Dia",
+                    "night": "Nit",
+                    "dim": "Atenuat",
+                    "bright": "Brillant",
+                    "auto": "Automàtic"
+                }
+            },
+            "seconds_dot": {
+                "name": "Punt dels segons",
+                "state": {
+                    "static": "Estàtic",
+                    "blinking": "Parpellejant"
+                }
+            },
+            "alarm_x_snooze_action": {
+                "name": "Alarma {x} mode d'ajornament",
+                "state": {
+                    "mute": "Silenciar so",
+                    "mute_light": "Silenciar so + llum",
+                    "light_only": "Silenciar només llum"
+                }
+            },
+            "alarm_x_sound_effect": {
+                "name": "Alarma {x} efecte de so",
+                "state": {
+                    "normal": "Normal",
+                    "fade_in": "Aparició gradual",
+                    "fade_out": "Desaparició gradual"
+                }
+            },
+            "alarm_x_wake_light_mode": {
+                "name": "Alarma {x} mode de llum de despertar",
+                "state": {
+                    "no_light": "Sense llum",
+                    "rainbow": "Arc de Sant Martí",
+                    "candle_flicker": "Parpelleig d'espelma",
+                    "romantic_breath": "Respiració romàntica",
+                    "quiet_deep_sea": "Mar profund tranquil",
+                    "flowing_colors": "Colors fluents",
+                    "magic_jungle": "Jungla màgica",
+                    "perfect_party": "Festa perfecta",
+                    "sunrise_at_sea": "Sortida de sol al mar",
+                    "dynamic_music": "Música dinàmica"
+                }
+            },
+            "snooze_action": {
+                "name": "Acció d'ajornament",
+                "state": {
+                    "sound_radio": "So + ràdio",
+                    "light": "Llum",
+                    "radio": "Ràdio",
+                    "radio_sound_light": "Ràdio + so + llum"
+                }
+            },
+            "time_format": {
+                "name": "Format de l'hora",
+                "state": {
+                    "12_hour": "12 hores",
+                    "24_hour": "24 hores"
+                }
             }
         },
         "sensor": {
+            "ambient_temperature": {
+                "name": "Temperatura ambiente"
+            },
+            "inlet_temperature": {
+                "name": "Temperatura d'entrada"
+            },
+            "outlet_temperature": {
+                "name": "Temperatura de sortida"
+            },
             "cleanliness": {
                 "name": "Limpieza",
                 "state": {
-                    "poor": "Mala",
+                    "poor": "Pobra",
                     "good": "Buena",
                     "great": "Excelente"
                 }
@@ -1030,6 +1258,17 @@
             "energy_consumed_x": {
                 "name": "Energia consumida {x}"
             },
+            "sd_status": {
+                "name": "Estat de la targeta SD",
+                "state": {
+                    "fault": "Errada",
+                    "formatting": "Formatant",
+                    "full": "Plena",
+                    "missing": "Sense targeta SD",
+                    "normal": "Normal",
+                    "unformatted": "Sense format"
+                }
+            },
             "status": {
                 "name": "Estat",
                 "state": {
@@ -1042,7 +1281,7 @@
                     "charged": "Carregat",
                     "fault": "Fallada",
                     "paused": "En pausa",
-                    "waiting_for_authorization": "S'està esperant autorització",
+                    "waiting_for_authorization": "En espera d'autorització",
                     "standby": "En espera",
                     "heating": "Calefacció",
                     "cold": "Frío",
@@ -1089,6 +1328,7 @@
                     "occupied": "Ocupat",
                     "normal": "Normal",
                     "low": "Baix",
+                    "medium": "Mitjà",
                     "high": "Alt",
                     "unwashed": "No rentat",
                     "pre_washing": "Prerentat",
@@ -1108,8 +1348,6 @@
                     "full": "Ple",
                     "empty": "Buit",
                     "missing": "Falta",
-                    "formatting": "Formatant",
-                    "unformatted": "No formatat",
                     "failed": "Ha fallat",
                     "replying": "Responent",
                     "playback": "Reproducció",
@@ -1149,9 +1387,39 @@
             },
             "days_stored": {
                 "name": "Días almacenados"
+            },
+            "leakage_current": {
+                "name": "Corrent de fuita"
+            },
+            "active_lights": {
+                "name": "Llums actius",
+                "state": {
+                    "all_off": "Tots desactivats",
+                    "night_on": "Llum nocturna activada",
+                    "color_on": "Llum de color activada",
+                    "ambient_on": "Llum ambiental activada"
+                }
+            },
+            "wireless_charging": {
+                "name": "Estat de càrrega sense fil",
+                "state": {
+                    "idle": "Inactiu",
+                    "charging": "Carregant",
+                    "full": "Ple",
+                    "foreign_object_detected": "Objecte estrany detectat"
+                }
             }
         },
         "switch": {
+            "timer": {
+                "name": "Temporitzador"
+            },
+            "empty_tank": {
+                "name": "Buidar dipòsit"
+            },
+            "fill_tank": {
+                "name": "Omplir dipòsit"
+            },
             "anti_frost": {
                 "name": "Antigel"
             },
@@ -1167,6 +1435,9 @@
                     "on": "Trencat",
                     "off": "Normal"
                 }
+            },
+            "camera_record": {
+                "name": "Gravació de la càmera"
             },
             "do_not_disturb": {
                 "name": "No molestar"
@@ -1212,14 +1483,74 @@
             },
             "rangehood": {
                 "name": "Campana extractora"
+            },
+            "alarm_x": {
+                "name": "Alarma {x}"
+            },
+            "alarm_x_snooze_enabled": {
+                "name": "Alarma {x} ajornament activat"
+            },
+            "alarm_x_day_monday": {
+                "name": "Alarma {x} dia 1 dilluns"
+            },
+            "alarm_x_day_tuesday": {
+                "name": "Alarma {x} dia 2 dimarts"
+            },
+            "alarm_x_day_wednesday": {
+                "name": "Alarma {x} dia 3 dimecres"
+            },
+            "alarm_x_day_thursday": {
+                "name": "Alarma {x} dia 4 dijous"
+            },
+            "alarm_x_day_friday": {
+                "name": "Alarma {x} dia 5 divendres"
+            },
+            "alarm_x_day_saturday": {
+                "name": "Alarma {x} dia 6 dissabte"
+            },
+            "alarm_x_day_sunday": {
+                "name": "Alarma {x} dia 7 diumenge"
+            },
+            "music_playback": {
+                "name": "Reproducció de música"
+            },
+            "network_time": {
+                "name": "Sincronització de l'hora de xarxa"
+            },
+            "night_mode": {
+                "name": "Mode nocturn"
+            },
+            "radio": {
+                "name": "Ràdio"
+            },
+            "snooze": {
+                "name": "Ajornament"
+            },
+            "motion_detection": {
+                "name": "Detecció de moviment"
+            },
+            "watermark": {
+                "name": "Marca de agua"
             }
         },
         "text": {
+            "meal_plan": {
+                "name": "Plan de comidas"
+            },
             "scene": {
                 "name": "Escena"
             },
             "schedule": {
                 "name": "Programa"
+            },
+            "alarm_settings": {
+                "name": "Configuració d'alarma"
+            },
+            "sleep_settings": {
+                "name": "Configuració del son"
+            },
+            "station_list": {
+                "name": "Llista d'estacions"
             }
         },
         "time": {
@@ -1234,6 +1565,12 @@
             },
             "timer_x": {
                 "name": "Temporitzador {x}"
+            },
+            "alarm_x_time": {
+                "name": "Alarma {x} hora"
+            },
+            "clock_time": {
+                "name": "Hora del rellotge"
             }
         },
         "valve": {
@@ -1250,6 +1587,26 @@
             },
             "hot_water": {
                 "name": "Aigua calenta"
+            }
+        },
+        "siren": {
+            "alarm_x": {
+                "name": "Alarma {x}",
+                "state_attributes": {
+                    "tone": {
+                        "state": {
+                            "none": "Cap",
+                            "birds": "Ocells",
+                            "sea": "Mar",
+                            "valley": "Vall",
+                            "piano": "Piano",
+                            "soft": "Suau",
+                            "phone": "Telèfon",
+                            "beep": "Bip",
+                            "radio": "Ràdio"
+                        }
+                    }
+                }
             }
         }
     }

@@ -106,6 +106,26 @@
             "not_supported": "Spiacente, questo dispositivo non è supportato."
         }
     },
+    "services": {
+        "send_learned_ir_command": {
+            "name": "Invia comando IR appreso",
+            "description": "Invia un comando remoto che è stato precedentemente appreso dall'entità remota a qualsiasi emettitore a infrarossi.",
+            "fields": {
+                "emitter_entity_id": {
+                    "name": "Entità emettitore",
+                    "description": "ID dell'entità dell'emettitore a cui inviare il comando."
+                },
+                "command": {
+                    "name": "Comando",
+                    "description": "Il comando da inviare. Questo deve essere un comando che è stato precedentemente appreso dall'integrazione per questo telecomando."
+                },
+                "device": {
+                    "name": "Dispositivo",
+                    "description": "Il dispositivo IR a cui inviare il comando. Questo è opzionale e necessario solo se il comando è stato salvato con un dispositivo."
+                }
+            }
+        }
+    },
     "entity": {
         "binary_sensor": {
             "direction": {
@@ -136,6 +156,7 @@
                             "chamber_low_temperature": "Temperatura bassa della camera",
                             "chamber_overheat": "Surriscaldamento della camera",
                             "communication_error": "Errore di comunicazione",
+                            "door_open": "Porta aperta",
                             "drain_blocked": "Scarico bloccato",
                             "evaporation_tray_low_temperature": "Temperatura bassa del vassoio di evaporazione",
                             "evaporation_tray_overheat": "Surriscaldamento del vassoio di evaporazione",
@@ -143,6 +164,8 @@
                             "firewall_sensor_fault": "Malfunzionamento del sensore del firewall",
                             "gas_leak": "Perdita di gas",
                             "heating_fault": "Malfunzionamento del riscaldamento",
+                            "high_temperature": "Alta temperatura",
+                            "low_temperature": "Bassa temperatura",
                             "no_water": "Nessuna acqua",
                             "ok": "OK",
                             "overflow": "Tracimazione",
@@ -193,6 +216,13 @@
                     "off": "OK",
                     "on": "Sale vuoto"
                 }
+            },
+            "water_flow": {
+                "name": "Flusso d'acqua",
+                "state": {
+                    "off": "Bloccato",
+                    "on": "Flusso"
+                }
             }
         },
         "button": {
@@ -201,6 +231,21 @@
             },
             "filter_reset": {
                 "name": "Reset del filtro"
+            },
+            "alarm_off": {
+                "name": "Spegni sveglia"
+            },
+            "alarm_snooze": {
+                "name": "Posticipa sveglia"
+            },
+            "alarm_x_reset": {
+                "name": "Sveglia {x} ripristino"
+            },
+            "radio_seek": {
+                "name": "Cerca radio"
+            },
+            "radio_stop": {
+                "name": "Arresta radio"
             }
         },
         "climate": {
@@ -275,7 +320,9 @@
                             "fan_only": "Solo ventola",
                             "heat": "Aria riscaldata",
                             "floor_cool": "Pavimento fresco",
-                            "floor_heat": "Pavimento riscaldato"
+                            "floor_heat": "Pavimento riscaldato",
+                            "air_floor_cool": "Aria e pavimento freschi",
+                            "air_floor_heat": "Aria e pavimento riscaldati"
                         }
                     }
                 }
@@ -322,7 +369,9 @@
                             "program_2": "Programma 2",
                             "program_3": "Programma 3",
                             "standby": "Standby",
-                            "fan_only": "Solo ventola"
+                            "fan_only": "Solo ventola",
+                            "program": "Programma",
+                            "anti_frost": "Antigelo"
                         }
                     }
                 }
@@ -371,6 +420,14 @@
                 }
             }
         },
+        "event": {
+            "alarm": {
+                "name": "Allarme"
+            },
+            "notification": {
+                "name": "Notifica"
+            }
+        },
         "humidifier": {
             "extended": {
                 "state_attributes": {
@@ -385,6 +442,23 @@
             }
         },
         "fan": {
+            "air_purifier": {
+                "name": "Purificatore d'aria",
+                "state_attributes": {
+                    "preset_mode": {
+                        "state": {
+                            "auto": "Auto",
+                            "manual": "Manuale",
+                            "sleep": "Sonno",
+                            "low": "Basso",
+                            "medium": "Medio",
+                            "high": "Alto",
+                            "strong": "Forte",
+                            "displayoff": "Display spento"
+                        }
+                    }
+                }
+            },
             "aroma_diffuser": {
                 "name": "Diffusore di aromi",
                 "state_attributes": {
@@ -447,7 +521,7 @@
                             "auto": "Auto",
                             "manual": "Manuale",
                             "eco": "Eco",
-                            "anti-condensation": "Anticondensa",
+                            "anti_condensation": "Anticondensa",
                             "extractor": "Estrattore",
                             "heat_recovery": "Recupero di calore",
                             "timer": "Timer",
@@ -488,6 +562,12 @@
             },
             "rangehood_light": {
                 "name": "Luce della cappa"
+            },
+            "color_light": {
+                "name": "Luce colorata"
+            },
+            "ambient_light": {
+                "name": "Luce ambientale"
             }
         },
         "lock": {
@@ -496,6 +576,9 @@
             }
         },
         "number": {
+            "flame_level": {
+                "name": "Livello della fiamma"
+            },
             "manual_feed": {
                 "name": "Alimentazione manuale"
             },
@@ -525,6 +608,21 @@
             },
             "top_temperature": {
                 "name": "Temperatura superiore"
+            },
+            "leakage_current": {
+                "name": "Corrente di dispersione"
+            },
+            "alarm_x_snooze_duration": {
+                "name": "Sveglia {x} durata posticipo"
+            },
+            "alarm_x_wake_light_lead_time": {
+                "name": "Sveglia {x} anticipo luce sveglia"
+            },
+            "radio_frequency": {
+                "name": "Frequenza radio"
+            },
+            "snooze_duration": {
+                "name": "Durata posticipo"
             }
         },
         "select": {
@@ -593,6 +691,7 @@
                     "english_child": "English (Child)",
                     "french": "Français",
                     "german": "Deutsch",
+                    "hungarian": "Magyar",
                     "italian": "Italiano",
                     "japanese": "日本語",
                     "korean": "한국어",
@@ -602,7 +701,20 @@
                     "spanish": "Español",
                     "turkish": "Türkçe",
                     "polish": "Polski",
-                    "vietnamese": "Tiếng Việt"
+                    "bulgarian": "Български",
+                    "czech": "Čeština",
+                    "romanian": "Română",
+                    "slovak": "Slovenčina",
+                    "thai": "ไทย",
+                    "vietnamese": "Tiếng Việt",
+                    "english_au": "English (Australia)",
+                    "english_ca": "English (Canada)",
+                    "english_in": "English (India)",
+                    "english_us": "English (United States)",
+                    "french_ca": "Français (Canada)",
+                    "hindi": "हिंदी",
+                    "spanish_us": "Español (Estados Unidos)",
+                    "off": "Spento"
                 }
             },
             "light_mode": {
@@ -613,7 +725,20 @@
                     "state": "Stato",
                     "locator": "Localizzatore",
                     "auto": "Auto",
-                    "flash": "Flash"
+                    "flash": "Flash",
+                    "breathe": "Respira",
+                    "random": "Casuale",
+                    "color": "Colore",
+                    "favorite": "Preferito",
+                    "multi_color": "Multicolore",
+                    "custom": "Personalizzato",
+                    "mode_1": "Modalità 1",
+                    "mode_2": "Modalità 2",
+                    "mode_3": "Modalità 3",
+                    "door": "Porta",
+                    "24h": "24 ore",
+                    "30m": "30 minuti",
+                    "1m": "1 minuto"
                 }
             },
             "mopping": {
@@ -634,6 +759,14 @@
                     "low": "Basso",
                     "medium": "Medio",
                     "high": "Alto"
+                }
+            },
+            "night_vision": {
+                "name": "Visione notturna",
+                "state": {
+                    "off": "Spento",
+                    "on": "Acceso",
+                    "auto": "Auto"
                 }
             },
             "recipe": {
@@ -664,6 +797,13 @@
                     "preheat": "Preriscaldare"
                 }
             },
+            "recording_mode": {
+                "name": "Modalità di registrazione",
+                "state": {
+                    "event": "Evento",
+                    "continuous": "Continuo"
+                }
+            },
             "scene": {
                 "name": "Scena",
                 "state": {
@@ -687,6 +827,10 @@
                 "state": {
                     "cancel": "Annulla",
                     "continuous": "Continuo",
+                    "custom": "Personalizzato",
+                    "immediate": "Immediato",
+                    "5s": "5 secondi",
+                    "10s": "10 secondi",
                     "15s": "15 secondi",
                     "20s": "20 secondi",
                     "30s": "30 secondi",
@@ -757,7 +901,16 @@
                     "4d": "4 giorni",
                     "5d": "5 giorni",
                     "6d": "6 giorni",
-                    "7d": "7 giorni"
+                    "7d": "7 giorni",
+                    "10d": "10 giorni",
+                    "30d": "30 giorni",
+                    "60d": "60 giorni",
+                    "80d": "80 giorni",
+                    "90d": "90 giorni",
+                    "100d": "100 giorni",
+                    "120d": "120 giorni",
+                    "160d": "160 giorni",
+                    "365d": "365 giorni"
                 }
             },
             "temperature_unit": {
@@ -785,7 +938,8 @@
                     "medium": "Medio",
                     "high": "Alto",
                     "rapid_clean": "Pulizia rapida",
-                    "schedule": "Programma"
+                    "schedule": "Programma",
+                    "sleep": "Sonno"
                 }
             },
             "activation_mode": {
@@ -975,9 +1129,83 @@
                     "red_bean_bread": "Pane ai fagioli rossi",
                     "milk_toast": "Pane al latte"
                 }
+            },
+            "display_brightness": {
+                "name": "Luminosità display",
+                "state": {
+                    "off": "Spento",
+                    "day": "Giorno",
+                    "night": "Notte",
+                    "dim": "Tenue",
+                    "bright": "Luminoso",
+                    "auto": "Auto"
+                }
+            },
+            "seconds_dot": {
+                "name": "Punto dei secondi",
+                "state": {
+                    "static": "Statico",
+                    "blinking": "Lampeggiante"
+                }
+            },
+            "alarm_x_snooze_action": {
+                "name": "Sveglia {x} modalità posticipo",
+                "state": {
+                    "mute": "Silenzia suono",
+                    "mute_light": "Silenzia suono + luce",
+                    "light_only": "Silenzia solo luce"
+                }
+            },
+            "alarm_x_sound_effect": {
+                "name": "Sveglia {x} effetto sonoro",
+                "state": {
+                    "normal": "Normale",
+                    "fade_in": "Dissolvenza in entrata",
+                    "fade_out": "Dissolvenza in uscita"
+                }
+            },
+            "alarm_x_wake_light_mode": {
+                "name": "Sveglia {x} modalità luce sveglia",
+                "state": {
+                    "no_light": "Nessuna luce",
+                    "rainbow": "Arcobaleno",
+                    "candle_flicker": "Tremolio di candela",
+                    "romantic_breath": "Respiro romantico",
+                    "quiet_deep_sea": "Mare profondo tranquillo",
+                    "flowing_colors": "Colori fluidi",
+                    "magic_jungle": "Giungla magica",
+                    "perfect_party": "Festa perfetta",
+                    "sunrise_at_sea": "Alba sul mare",
+                    "dynamic_music": "Musica dinamica"
+                }
+            },
+            "snooze_action": {
+                "name": "Azione posticipo",
+                "state": {
+                    "sound_radio": "Suono + radio",
+                    "light": "Luce",
+                    "radio": "Radio",
+                    "radio_sound_light": "Radio + suono + luce"
+                }
+            },
+            "time_format": {
+                "name": "Formato ora",
+                "state": {
+                    "12_hour": "12 ore",
+                    "24_hour": "24 ore"
+                }
             }
         },
         "sensor": {
+            "ambient_temperature": {
+                "name": "Temperatura ambiente"
+            },
+            "inlet_temperature": {
+                "name": "Temperatura di ingresso"
+            },
+            "outlet_temperature": {
+                "name": "Temperatura di uscita"
+            },
             "cleanliness": {
                 "name": "Pulizia",
                 "state": {
@@ -995,6 +1223,17 @@
                     "poor": "Scarsa",
                     "severe": "Pessima",
                     "danger": "Pericolosa"
+                }
+            },
+            "sd_status": {
+                "name": "Stato SD",
+                "state": {
+                    "fault": "Guasto",
+                    "formatting": "Formattazione",
+                    "full": "Pieno",
+                    "missing": "Mancante",
+                    "normal": "Normale",
+                    "unformatted": "Non formattato"
                 }
             },
             "status": {
@@ -1056,6 +1295,7 @@
                     "occupied": "Occupato",
                     "normal": "Normale",
                     "low": "Basso",
+                    "medium": "Medio",
                     "high": "Alto",
                     "unwashed": "Non lavato",
                     "pre_washing": "Pre-lavaggio",
@@ -1075,8 +1315,6 @@
                     "full": "Pieno",
                     "empty": "Vuoto",
                     "missing": "Mancante",
-                    "formatting": "Formattazione",
-                    "unformatted": "Non formattato",
                     "failed": "Fallito",
                     "replying": "Risposta",
                     "playback": "Riproduzione",
@@ -1149,9 +1387,39 @@
             },
             "days_stored": {
                 "name": "Giorni memorizzati"
+            },
+            "leakage_current": {
+                "name": "Corrente di dispersione"
+            },
+            "active_lights": {
+                "name": "Luci attive",
+                "state": {
+                    "all_off": "Tutte spente",
+                    "night_on": "Luce notturna accesa",
+                    "color_on": "Luce colorata accesa",
+                    "ambient_on": "Luce ambientale accesa"
+                }
+            },
+            "wireless_charging": {
+                "name": "Stato ricarica senza fili",
+                "state": {
+                    "idle": "Inattivo",
+                    "charging": "In carica",
+                    "full": "Carica completa",
+                    "foreign_object_detected": "Oggetto estraneo rilevato"
+                }
             }
         },
         "switch": {
+            "timer": {
+                "name": "Timer"
+            },
+            "empty_tank": {
+                "name": "Svuotare il serbatoio"
+            },
+            "fill_tank": {
+                "name": "Riempire il serbatoio"
+            },
             "anti_frost": {
                 "name": "Antigelo"
             },
@@ -1167,6 +1435,9 @@
                     "off": "Aperto",
                     "on": "Chiuso"
                 }
+            },
+            "camera_record": {
+                "name": "Registrazione fotocamera"
             },
             "do_not_disturb": {
                 "name": "Non disturbare"
@@ -1212,14 +1483,74 @@
             },
             "rangehood": {
                 "name": "Cappa"
+            },
+            "alarm_x": {
+                "name": "Sveglia {x}"
+            },
+            "alarm_x_snooze_enabled": {
+                "name": "Sveglia {x} posticipo abilitato"
+            },
+            "alarm_x_day_monday": {
+                "name": "Sveglia {x} giorno 1-lunedì"
+            },
+            "alarm_x_day_tuesday": {
+                "name": "Sveglia {x} giorno 2-martedì"
+            },
+            "alarm_x_day_wednesday": {
+                "name": "Sveglia {x} giorno 3-mercoledì"
+            },
+            "alarm_x_day_thursday": {
+                "name": "Sveglia {x} giorno 4-giovedì"
+            },
+            "alarm_x_day_friday": {
+                "name": "Sveglia {x} giorno 5-venerdì"
+            },
+            "alarm_x_day_saturday": {
+                "name": "Sveglia {x} giorno 6-sabato"
+            },
+            "alarm_x_day_sunday": {
+                "name": "Sveglia {x} giorno 7-domenica"
+            },
+            "music_playback": {
+                "name": "Riproduzione musica"
+            },
+            "network_time": {
+                "name": "Sincronizzazione ora di rete"
+            },
+            "night_mode": {
+                "name": "Modalità notturna"
+            },
+            "radio": {
+                "name": "Radio"
+            },
+            "snooze": {
+                "name": "Posticipo"
+            },
+            "motion_detection": {
+                "name": "Rilevamento del movimento"
+            },
+            "watermark": {
+                "name": "Filigrana"
             }
         },
         "text": {
+            "meal_plan": {
+                "name": "Piano dei pasti"
+            },
             "scene": {
                 "name": "Scena"
             },
             "schedule": {
                 "name": "Programma"
+            },
+            "alarm_settings": {
+                "name": "Impostazioni sveglia"
+            },
+            "sleep_settings": {
+                "name": "Impostazioni sonno"
+            },
+            "station_list": {
+                "name": "Lista delle stazioni"
             }
         },
         "time": {
@@ -1234,6 +1565,12 @@
             },
             "timer_x": {
                 "name": "Timer {x}"
+            },
+            "alarm_x_time": {
+                "name": "Sveglia {x} orario"
+            },
+            "clock_time": {
+                "name": "Ora dell'orologio"
             }
         },
         "valve": {
@@ -1250,6 +1587,26 @@
             },
             "hot_water": {
                 "name": "Acqua calda"
+            }
+        },
+        "siren": {
+            "alarm_x": {
+                "name": "Sveglia {x}",
+                "state_attributes": {
+                    "tone": {
+                        "state": {
+                            "none": "Nessuno",
+                            "birds": "Uccelli",
+                            "sea": "Mare",
+                            "valley": "Valle",
+                            "piano": "Piano",
+                            "soft": "Dolce",
+                            "phone": "Telefono",
+                            "beep": "Bip",
+                            "radio": "Radio"
+                        }
+                    }
+                }
             }
         }
     }

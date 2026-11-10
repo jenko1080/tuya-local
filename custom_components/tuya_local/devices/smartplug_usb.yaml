@@ -6,6 +6,9 @@ products:
   - id: re5wqraswcozglky
     manufacturer: Gosund
     model: SP6
+  - id: uofbqh4uyqkiac1l
+    manufacturer: Green Power
+    model: GP-SP1U
 entities:
   - entity: switch
     class: outlet
@@ -103,9 +106,11 @@ entities:
   - entity: sensor
     class: energy
     category: diagnostic
+    hidden: true
     dps:
       - id: 17
         type: integer
+        optional: true
         name: sensor
         unit: kWh
         class: total_increasing

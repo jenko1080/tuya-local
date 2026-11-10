@@ -3,12 +3,12 @@
 import json
 import sys
 
-from common_funcs import FakeDevice
-
 from custom_components.tuya_local.helpers.device_config import (
     TuyaDeviceConfig,
     available_configs,
 )
+
+from .common_funcs import FakeDevice
 
 
 def main() -> int:
@@ -27,10 +27,16 @@ def main() -> int:
                         f"{config}:{entity._config.__line__}: MISSING {entity.translation_key}"
                     )
                     continue
+                if "state" not in translations:
+                    print(
+                        f"{config}:{entity._config.__line__}: MISSING state in {entity.translation_key}"
+                    )
+                    continue
                 for v in d.values(dev):
                     if v not in translations["state"]:
+                        line = v.__line__ if v else d._config.__line__
                         print(
-                            f"{config}:{v.__line__}: {v} missing from {entity.translation_key}"
+                            f"{config}:{line}: {v} missing from {entity.translation_key}"
                         )
     return 0
 
